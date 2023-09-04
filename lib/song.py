@@ -25,3 +25,10 @@ class Song:
         """
 
         CURSOR.execute(sql, (self.name, self.album))
+
+        self.id = CURSOR.execute("SELECT last_insert_rowid() FROM songs").fetchone()[0] 
+    @classmethod
+    def create(cls, name, album):
+        song = Song(name, album)
+        song.save()
+        return song    
